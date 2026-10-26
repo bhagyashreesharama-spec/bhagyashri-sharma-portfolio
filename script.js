@@ -1,170 +1,81 @@
 
+/* ========================================
+   BHAGYASHRI SHARMA — PORTFOLIO JAVASCRIPT
+   ======================================== */
+
 document.addEventListener("DOMContentLoaded", () => {
-  // Smooth reveal animations
-  const revealElements = document.querySelectorAll(
-    "section, .card, .project-card, .video-card, .brand-card, .skill-card"
-  );
+  // 1. MOBILE MENU
+  const menuToggle = document.querySelector("#menuToggle");
+  const navMenu = document.querySelector("#navMenu");
 
-  revealElements.forEach((element) => {
-    element.classList.add("reveal");
-  });
+  if (menuToggle && navMenu) {
+    menuToggle.addEventListener("click", () => {
+      navMenu.classList.toggle("open");
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          observer.unobserve(entry.target);
-        }
-      });
-    },
-    {
-      threshold: 0.12,
-      rootMargin: "0px 0px -35px 0px"
-    }
-  );
-
-  revealElements.forEach((element) => observer.observe(element));
-
-  // Scroll progress bar
-  const updateScrollProgress = () => {
-    const scrollableHeight =
-      document.documentElement.scrollHeight - window.innerHeight;
-
-    const progress = scrollableHeight > 0
-      ? (window.scrollY / scrollableHeight) * 100
-      : 0;
-
-    const bar = document.querySelector(
-      "#progress, .scroll-progress, .progress-bar"
-    );
-
-    if (bar) {
-      bar.style.width = `${progress}%`;
-    }
-  };
-
-  window.addEventListener("scroll", updateScrollProgress, {
-    passive: true
-  });
-
-  updateScrollProgress();
-
-  // Navbar background on scroll
-  const navbar = document.querySelector(
-    "nav, .navbar, .site-nav, header"
-  );
-
-  const updateNavbar = () => {
-    if (navbar) {
-      navbar.classList.toggle("scrolled", window.scrollY > 40);
-    }
-  };
-
-  window.addEventListener("scroll", updateNavbar, {
-    passive: true
-  });
-
-  updateNavbar();
-
-  // Mobile navigation
-  const menuButton = document.querySelector(
-    ".menu-toggle, .hamburger, [data-menu-toggle]"
-  );
-
-  const navLinks = document.querySelector(
-    ".nav-links, .navbar-links, nav ul"
-  );
-
-  if (menuButton && navLinks) {
-    menuButton.addEventListener("click", () => {
-      const isOpen = navLinks.classList.toggle("active");
-
-      menuButton.setAttribute("aria-expanded", String(isOpen));
-      menuButton.classList.toggle("active", isOpen);
+      const isOpen = navMenu.classList.contains("open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.textContent = isOpen ? "✕" : "☰";
     });
 
-    navLinks.querySelectorAll("a").forEach((link) => {
+    navMenu.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", () => {
-        navLinks.classList.remove("active");
-        menuButton.classList.remove("active");
-        menuButton.setAttribute("aria-expanded", "false");
+        navMenu.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.textContent = "☰";
       });
     });
   }
 
-  // Active navigation link while scrolling
-  const sections = document.querySelectorAll("main section[id], section[id]");
-  const links = document.querySelectorAll(
-    'nav a[href^="#"], .nav-links a[href^="#"]'
-  );
+  // 2. SCROLL REVEAL ANIMATIONS
+  const revealElements = document.querySelectorAll(".reveal");
 
-  if (sections.length && links.length) {
-    const sectionObserver = new IntersectionObserver(
-      (entries) => {
+  if ("IntersectionObserver" in window) {
+    const revealObserver = new IntersectionObserver(
+      (entries, observer) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            links.forEach((link) => {
-              const isActive =
-                link.getAttribute("href") === `#${entry.target.id}`;
-
-              link.classList.toggle("active", isActive);
-            });
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
           }
         });
       },
-      { rootMargin: "-35% 0px -55% 0px" }
+      {
+        threshold: 0.12,
+        rootMargin: "0px 0px -35px 0px",
+      }
     );
 
-    sections.forEach((section) => sectionObserver.observe(section));
+    revealElements.forEach((element) => {
+      revealObserver.observe(element);
+    });
+  } else {
+    revealElements.forEach((element) => {
+      element.classList.add("visible");
+    });
   }
 
-  // Gentle mouse-follow glow
-  document.querySelectorAll(
-    ".card, .project-card, .video-card, .brand-card, .skill-card"
-  ).forEach((card) => {
-    card.addEventListener("pointermove", (event) => {
-      const rect = card.getBoundingClientRect();
+  // 3. CINEMATIC CURSOR GLOW
+  const cursorGlow = document.querySelector(".cursor-glow");
 
-      card.style.setProperty(
-        "--mouse-x",
-        `${event.clientX - rect.left}px`
-      );
+  if (cursorGlow && window.matchMedia("(pointer: fine)").matches) {
+    window.addEventListener(
+      "pointermove",
+      (event) => {
+        cursorGlow.style.left = `${event.clientX}px`;
+        cursorGlow.style.top = `${event.clientY}px`;
+      },
+      { passive: true }
+    );
+  }
 
-      card.style.setProperty(
-        "--mouse-y",
-        `${event.clientY - rect.top}px`
-      );
-    });
-  });
+  // 4. CURRENT YEAR IN FOOTER
+  const yearElement = document.querySelector("#currentYear");
 
-  // Copy email button
-  document.querySelectorAll("[data-copy-email]").forEach((button) => {
-    button.addEventListener("click", async () => {
-      const email =
-        button.dataset.copyEmail || "pawversecollective@gmail.com";
+  if (yearElement) {
+    yearElement.textContent = new Date().getFullYear();
+  }
 
-      try {
-        await navigator.clipboard.writeText(email);
-
-        const originalText = button.textContent;
-        button.textContent = "Email Copied! ✓";
-
-        setTimeout(() => {
-          button.textContent = originalText;
-        }, 1800);
-      } catch {
-        window.location.href = `mailto:${email}`;
-      }
-    });
-  });
-
-  // Current year
-  document.querySelectorAll("[data-year]").forEach((element) => {
-    element.textContent = new Date().getFullYear();
-  });
-
-  // Smooth scrolling for internal links
+  // 5. SMOOTH SCROLL FOR INTERNAL LINKS
   document.querySelectorAll('a[href^="#"]').forEach((link) => {
     link.addEventListener("click", (event) => {
       const targetId = link.getAttribute("href");
@@ -178,44 +89,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
         target.scrollIntoView({
           behavior: "smooth",
-          block: "start"
+          block: "start",
         });
       }
     });
   });
 
-  // Hero parallax effect
-  const hero = document.querySelector(".hero");
-  const heroContent = document.querySelector(
-    ".hero-content, .hero-inner"
-  );
+  // 6. SHOW ANIMATION ELEMENTS IF ALREADY IN VIEW
+  window.addEventListener("load", () => {
+    revealElements.forEach((element) => {
+      const rect = element.getBoundingClientRect();
 
-  if (hero && heroContent) {
-    window.addEventListener(
-      "scroll",
-      () => {
-        if (window.scrollY < window.innerHeight) {
-          heroContent.style.transform =
-            `translateY(${window.scrollY * 0.12}px)`;
-        }
-      },
-      { passive: true }
-    );
-  }
-
-  // Image fallback if a portfolio image is missing
-  document.querySelectorAll("img").forEach((img) => {
-    img.addEventListener("error", () => {
-      img.classList.add("image-missing");
-      img.alt = img.alt || "Portfolio image";
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        element.classList.add("visible");
+      }
     });
   });
-
-  // Footer year fallback
-  const footerYear = document.querySelector("#year");
-  if (footerYear) {
-    footerYear.textContent = new Date().getFullYear();
-  }
-
-  console.log("✨ Bhagyashri's portfolio animations initialized!");
 });
+
