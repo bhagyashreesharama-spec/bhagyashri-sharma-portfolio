@@ -1,32 +1,51 @@
 
-/* ========================================
-   BHAGYASHRI SHARMA — PORTFOLIO JAVASCRIPT
-   ======================================== */
+/* =========================================
+   BHAGYASHRI SHARMA — PORTFOLIO INTERACTIONS
+========================================= */
 
 document.addEventListener("DOMContentLoaded", () => {
-  // 1. MOBILE MENU
-  const menuToggle = document.querySelector("#menuToggle");
-  const navMenu = document.querySelector("#navMenu");
+  // 1. AUTOMATIC FOOTER YEAR
+  const yearElement = document.getElementById("year");
 
-  if (menuToggle && navMenu) {
+  if (yearElement) {
+    yearElement.textContent = new Date().getFullYear();
+  }
+
+  // 2. MOBILE NAVIGATION MENU
+  const menuToggle = document.getElementById("menuToggle");
+  const navLinks = document.getElementById("navLinks");
+
+  if (menuToggle && navLinks) {
     menuToggle.addEventListener("click", () => {
-      navMenu.classList.toggle("open");
+      const isOpen = navLinks.classList.toggle("open");
 
-      const isOpen = navMenu.classList.contains("open");
       menuToggle.setAttribute("aria-expanded", String(isOpen));
-      menuToggle.textContent = isOpen ? "✕" : "☰";
+      menuToggle.setAttribute(
+        "aria-label",
+        isOpen ? "Close navigation" : "Open navigation"
+      );
     });
 
-    navMenu.querySelectorAll("a").forEach((link) => {
+    // Close menu when a navigation link is selected
+    navLinks.querySelectorAll("a").forEach((link) => {
       link.addEventListener("click", () => {
-        navMenu.classList.remove("open");
+        navLinks.classList.remove("open");
         menuToggle.setAttribute("aria-expanded", "false");
-        menuToggle.textContent = "☰";
+        menuToggle.setAttribute("aria-label", "Open navigation");
       });
+    });
+
+    // Close menu with Escape
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        navLinks.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.setAttribute("aria-label", "Open navigation");
+      }
     });
   }
 
-  // 2. SCROLL REVEAL ANIMATIONS
+  // 3. SCROLL REVEAL ANIMATIONS
   const revealElements = document.querySelectorAll(".reveal");
 
   if ("IntersectionObserver" in window) {
@@ -41,7 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
       },
       {
         threshold: 0.12,
-        rootMargin: "0px 0px -35px 0px",
+        rootMargin: "0px 0px -35px 0px"
       }
     );
 
@@ -54,56 +73,160 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 3. CINEMATIC CURSOR GLOW
-  const cursorGlow = document.querySelector(".cursor-glow");
+  // 4. TOP SCROLL PROGRESS BAR
+  const scrollProgress = document.getElementById("scrollProgress");
+  let scrollTicking = false;
 
-  if (cursorGlow && window.matchMedia("(pointer: fine)").matches) {
-    window.addEventListener(
-      "pointermove",
-      (event) => {
-        cursorGlow.style.left = `${event.clientX}px`;
-        cursorGlow.style.top = `${event.clientY}px`;
-      },
-      { passive: true }
-    );
+  function updateScrollProgress() {
+    if (!scrollProgress) return;
+
+    const scrollableHeight =
+      document.documentElement.scrollHeight - window.innerHeight;
+
+    const progress =
+      scrollableHeight > 0
+        ? (window.scrollY / scrollableHeight) * 100
+        : 0;
+
+    scrollProgress.style.width = `${Math.min(progress, 100)}%`;
+    scrollTicking = false;
   }
 
-  // 4. CURRENT YEAR IN FOOTER
-  const yearElement = document.querySelector("#currentYear");
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!scrollTicking) {
+        window.requestAnimationFrame(updateScrollProgress);
+        scrollTicking = true;
+      }
+    },
+    { passive: true }
+  );
 
-  if (yearElement) {
-    yearElement.textContent = new Date().getFullYear();
+  updateScrollProgress();
+
+  // 5. BACK TO TOP
+  const backToTop = document.getElementById("backToTop");
+
+  if (backToTop) {
+    backToTop.addEventListener("click", (event) => {
+      event.preventDefault();
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
   }
 
-  // 5. SMOOTH SCROLL FOR INTERNAL LINKS
-  document.querySelectorAll('a[href^="#"]').forEach((link) => {
-    link.addEventListener("click", (event) => {
-      const targetId = link.getAttribute("href");
+  // 6. SUBTLE HERO PARALLAX ON DESKTOP
+  const heroVisual = document.querySelector("[data-parallax]");
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  );
 
-      if (!targetId || targetId === "#") return;
+  if (
+    heroVisual &&
+    window.matchMedia("(min-width: 761px)").matches &&
+    !prefersReducedMotion.matches
+  ) {
+    let pointerTicking = false;
+    let pointerX = 0;
+    let pointerY = 0;
 
-      const target = document.querySelector(targetId);
+    document.addEventListener("pointermove", (event) => {
+      pointerX = (event.clientX / window.innerWidth - 0.5) * 8;
+      pointerY = (event.clientY / window.innerHeight - 0.5) * 8;
 
-      if (target) {
-        event.preventDefault();
+      if (!pointerTicking) {
+        window.requestAnimationFrame(() => {
+          heroVisual.style.setProperty("--parallax-x", `${pointerX}px`);
+          heroVisual.style.setProperty("--parallax-y", `${pointerY}px`);
+          heroVisual.style.transform =
+            `translate3d(${pointerX}px, ${pointerY}px, 0)`;
 
-        target.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
+          pointerTicking = false;
         });
+
+        pointerTicking = true;
       }
+    });
+  }
+
+  // 7. PROJECT CARD TILT ON DESKTOP
+  const projectCards = document.querySelectorAll(".project-card");
+
+  if (
+    window.matchMedia("(min-width: 1000px)").matches &&
+    !prefersReducedMotion.matches
+  ) {
+    projectCards.forEach((card) => {
+      card.addEventListener("pointermove", (event) => {
+        const rect = card.getBoundingClientRect();
+
+        const x = (event.clientX - rect.left) / rect.width;
+        const y = (event.clientY - rect.top) / rect.height;
+
+        const rotateY = (x - 0.5) * 4;
+        const rotateX = (0.5 - y) * 4;
+
+        card.style.transform =
+          `translateY(-7px) perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      });
+
+      card.addEventListener("pointerleave", () => {
+        card.style.transform = "";
+      });
+    });
+  }
+
+  // 8. HIGHLIGHT THE CURRENT SECTION IN NAVIGATION
+  const sections = document.querySelectorAll(
+    "main section[id]"
+  );
+
+  const navAnchors = document.querySelectorAll(
+    '.nav-links a[href^="#"]'
+  );
+
+  if ("IntersectionObserver" in window && sections.length) {
+    const sectionObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            navAnchors.forEach((anchor) => {
+              const matches =
+                anchor.getAttribute("href") === `#${entry.target.id}`;
+
+              if (matches) {
+                anchor.setAttribute("aria-current", "location");
+              } else {
+                anchor.removeAttribute("aria-current");
+              }
+            });
+          }
+        });
+      },
+      {
+        rootMargin: "-30% 0px -60% 0px"
+      }
+    );
+
+    sections.forEach((section) => {
+      sectionObserver.observe(section);
+    });
+  }
+
+  // 9. KEEP VIDEOS PAUSED UNTIL THE VISITOR PRESSES PLAY
+  document.querySelectorAll("video").forEach((video) => {
+    video.preload = "metadata";
+    video.addEventListener("error", () => {
+      console.info(
+        "A portfolio video could not load. Check its filename and assets folder."
+      );
     });
   });
 
-  // 6. SHOW ANIMATION ELEMENTS IF ALREADY IN VIEW
-  window.addEventListener("load", () => {
-    revealElements.forEach((element) => {
-      const rect = element.getBoundingClientRect();
-
-      if (rect.top < window.innerHeight && rect.bottom > 0) {
-        element.classList.add("visible");
-      }
-    });
-  });
+  console.log("Bhagyashri's portfolio is ready ✨");
 });
 
