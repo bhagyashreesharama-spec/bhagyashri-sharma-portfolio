@@ -1,232 +1,195 @@
+// MOBILE MENU
+const menuBtn=document.getElementById('menuBtn');
+const navlinks=document.getElementById('navlinks');
 
-/* =========================================
-   BHAGYASHRI SHARMA — PORTFOLIO INTERACTIONS
-========================================= */
-
-document.addEventListener("DOMContentLoaded", () => {
-  // 1. AUTOMATIC FOOTER YEAR
-  const yearElement = document.getElementById("year");
-
-  if (yearElement) {
-    yearElement.textContent = new Date().getFullYear();
-  }
-
-  // 2. MOBILE NAVIGATION MENU
-  const menuToggle = document.getElementById("menuToggle");
-  const navLinks = document.getElementById("navLinks");
-
-  if (menuToggle && navLinks) {
-    menuToggle.addEventListener("click", () => {
-      const isOpen = navLinks.classList.toggle("open");
-
-      menuToggle.setAttribute("aria-expanded", String(isOpen));
-      menuToggle.setAttribute(
-        "aria-label",
-        isOpen ? "Close navigation" : "Open navigation"
-      );
-    });
-
-    // Close menu when a navigation link is selected
-    navLinks.querySelectorAll("a").forEach((link) => {
-      link.addEventListener("click", () => {
-        navLinks.classList.remove("open");
-        menuToggle.setAttribute("aria-expanded", "false");
-        menuToggle.setAttribute("aria-label", "Open navigation");
-      });
-    });
-
-    // Close menu with Escape
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") {
-        navLinks.classList.remove("open");
-        menuToggle.setAttribute("aria-expanded", "false");
-        menuToggle.setAttribute("aria-label", "Open navigation");
-      }
-    });
-  }
-
-  // 3. SCROLL REVEAL ANIMATIONS
-  const revealElements = document.querySelectorAll(".reveal");
-
-  if ("IntersectionObserver" in window) {
-    const revealObserver = new IntersectionObserver(
-      (entries, observer) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        threshold: 0.12,
-        rootMargin: "0px 0px -35px 0px"
-      }
-    );
-
-    revealElements.forEach((element) => {
-      revealObserver.observe(element);
-    });
-  } else {
-    revealElements.forEach((element) => {
-      element.classList.add("visible");
-    });
-  }
-
-  // 4. TOP SCROLL PROGRESS BAR
-  const scrollProgress = document.getElementById("scrollProgress");
-  let scrollTicking = false;
-
-  function updateScrollProgress() {
-    if (!scrollProgress) return;
-
-    const scrollableHeight =
-      document.documentElement.scrollHeight - window.innerHeight;
-
-    const progress =
-      scrollableHeight > 0
-        ? (window.scrollY / scrollableHeight) * 100
-        : 0;
-
-    scrollProgress.style.width = `${Math.min(progress, 100)}%`;
-    scrollTicking = false;
-  }
-
-  window.addEventListener(
-    "scroll",
-    () => {
-      if (!scrollTicking) {
-        window.requestAnimationFrame(updateScrollProgress);
-        scrollTicking = true;
-      }
-    },
-    { passive: true }
-  );
-
-  updateScrollProgress();
-
-  // 5. BACK TO TOP
-  const backToTop = document.getElementById("backToTop");
-
-  if (backToTop) {
-    backToTop.addEventListener("click", (event) => {
-      event.preventDefault();
-
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth"
-      });
-    });
-  }
-
-  // 6. SUBTLE HERO PARALLAX ON DESKTOP
-  const heroVisual = document.querySelector("[data-parallax]");
-  const prefersReducedMotion = window.matchMedia(
-    "(prefers-reduced-motion: reduce)"
-  );
-
-  if (
-    heroVisual &&
-    window.matchMedia("(min-width: 761px)").matches &&
-    !prefersReducedMotion.matches
-  ) {
-    let pointerTicking = false;
-    let pointerX = 0;
-    let pointerY = 0;
-
-    document.addEventListener("pointermove", (event) => {
-      pointerX = (event.clientX / window.innerWidth - 0.5) * 8;
-      pointerY = (event.clientY / window.innerHeight - 0.5) * 8;
-
-      if (!pointerTicking) {
-        window.requestAnimationFrame(() => {
-          heroVisual.style.setProperty("--parallax-x", `${pointerX}px`);
-          heroVisual.style.setProperty("--parallax-y", `${pointerY}px`);
-          heroVisual.style.transform =
-            `translate3d(${pointerX}px, ${pointerY}px, 0)`;
-
-          pointerTicking = false;
-        });
-
-        pointerTicking = true;
-      }
-    });
-  }
-
-  // 7. PROJECT CARD TILT ON DESKTOP
-  const projectCards = document.querySelectorAll(".project-card");
-
-  if (
-    window.matchMedia("(min-width: 1000px)").matches &&
-    !prefersReducedMotion.matches
-  ) {
-    projectCards.forEach((card) => {
-      card.addEventListener("pointermove", (event) => {
-        const rect = card.getBoundingClientRect();
-
-        const x = (event.clientX - rect.left) / rect.width;
-        const y = (event.clientY - rect.top) / rect.height;
-
-        const rotateY = (x - 0.5) * 4;
-        const rotateX = (0.5 - y) * 4;
-
-        card.style.transform =
-          `translateY(-7px) perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-      });
-
-      card.addEventListener("pointerleave", () => {
-        card.style.transform = "";
-      });
-    });
-  }
-
-  // 8. HIGHLIGHT THE CURRENT SECTION IN NAVIGATION
-  const sections = document.querySelectorAll(
-    "main section[id]"
-  );
-
-  const navAnchors = document.querySelectorAll(
-    '.nav-links a[href^="#"]'
-  );
-
-  if ("IntersectionObserver" in window && sections.length) {
-    const sectionObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            navAnchors.forEach((anchor) => {
-              const matches =
-                anchor.getAttribute("href") === `#${entry.target.id}`;
-
-              if (matches) {
-                anchor.setAttribute("aria-current", "location");
-              } else {
-                anchor.removeAttribute("aria-current");
-              }
-            });
-          }
-        });
-      },
-      {
-        rootMargin: "-30% 0px -60% 0px"
-      }
-    );
-
-    sections.forEach((section) => {
-      sectionObserver.observe(section);
-    });
-  }
-
-  // 9. KEEP VIDEOS PAUSED UNTIL THE VISITOR PRESSES PLAY
-  document.querySelectorAll("video").forEach((video) => {
-    video.preload = "metadata";
-    video.addEventListener("error", () => {
-      console.info(
-        "A portfolio video could not load. Check its filename and assets folder."
-      );
-    });
-  });
-
-  console.log("Bhagyashri's portfolio is ready ✨");
+menuBtn.addEventListener('click',()=>{
+  navlinks.classList.toggle('open');
 });
 
+navlinks.querySelectorAll('a').forEach(a=>{
+  a.addEventListener('click',()=>{
+    navlinks.classList.remove('open');
+  });
+});
+
+// CURSOR FOLLOW
+const cursor=document.querySelector('.cursor');
+const ring=document.querySelector('.cursor-ring');
+
+let mx=innerWidth/2;
+let my=innerHeight/2;
+let rx=mx;
+let ry=my;
+
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;
+  my=e.clientY;
+  cursor.style.left=mx+'px';
+  cursor.style.top=my+'px';
+});
+
+function animateRing(){
+  rx+=(mx-rx)*.15;
+  ry+=(my-ry)*.15;
+
+  ring.style.left=rx+'px';
+  ring.style.top=ry+'px';
+
+  requestAnimationFrame(animateRing);
+}
+
+animateRing();
+
+// REVEAL ON SCROLL
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      entry.target.classList.add('show');
+      observer.unobserve(entry.target);
+    }
+  });
+},{threshold:.12});
+
+document.querySelectorAll('.reveal').forEach(el=>{
+  observer.observe(el);
+});
+
+// TYPING EFFECT
+const words=['.','Creator.','Builder.','Dreamer.','Explorer.'];
+
+let wordIndex=0;
+let charIndex=0;
+let deleting=false;
+
+const typing=document.getElementById('typing');
+
+function type(){
+  const word=words[wordIndex];
+
+  typing.textContent=deleting
+    ?word.substring(0,charIndex--)
+    :word.substring(0,charIndex++);
+
+  if(!deleting&&charIndex>word.length){
+    deleting=true;
+    setTimeout(type,1100);
+    return;
+  }
+
+  if(deleting&&charIndex<0){
+    deleting=false;
+    wordIndex=(wordIndex+1)%words.length;
+    charIndex=0;
+  }
+
+  setTimeout(type,deleting?65:110);
+}
+
+type();
+
+// PARTICLE FIELD
+const canvas=document.getElementById('particles');
+const ctx=canvas.getContext('2d');
+
+let particles=[];
+
+function resizeCanvas(){
+  canvas.width=innerWidth*devicePixelRatio;
+  canvas.height=innerHeight*devicePixelRatio;
+
+  ctx.setTransform(
+    devicePixelRatio,0,0,
+    devicePixelRatio,0,0
+  );
+
+  particles=Array.from({
+    length:Math.min(90,Math.floor(innerWidth/14))
+  },()=>({
+    x:Math.random()*innerWidth,
+    y:Math.random()*innerHeight,
+    r:Math.random()*1.8+.3,
+    vx:(Math.random()-.5)*.35,
+    vy:(Math.random()-.5)*.35,
+    a:Math.random()*.6+.15
+  }));
+}
+
+resizeCanvas();
+addEventListener('resize',resizeCanvas);
+
+function drawParticles(){
+  ctx.clearRect(0,0,innerWidth,innerHeight);
+
+  particles.forEach(p=>{
+    p.x+=p.vx;
+    p.y+=p.vy;
+
+    if(p.x<0||p.x>innerWidth)p.vx*=-1;
+    if(p.y<0||p.y>innerHeight)p.vy*=-1;
+
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle=`rgba(190,140,255,${p.a})`;
+    ctx.fill();
+  });
+
+  for(let i=0;i<particles.length;i++){
+    for(let j=i+1;j<particles.length;j++){
+      const a=particles[i];
+      const b=particles[j];
+      const d=Math.hypot(a.x-b.x,a.y-b.y);
+
+      if(d<105){
+        ctx.beginPath();
+        ctx.moveTo(a.x,a.y);
+        ctx.lineTo(b.x,b.y);
+        ctx.strokeStyle=`rgba(165,105,230,${(1-d/105)*.12})`;
+        ctx.stroke();
+      }
+    }
+  }
+
+  requestAnimationFrame(drawParticles);
+}
+
+drawParticles();
+
+// SUBTLE SCROLL PARALLAX
+let ticking=false;
+
+addEventListener('scroll',()=>{
+  if(!ticking){
+    requestAnimationFrame(()=>{
+      const y=scrollY;
+      const heroVisual=document.querySelector('.hero-visual');
+
+      if(heroVisual){
+        heroVisual.style.transform=`translateY(${y*.08}px)`;
+      }
+
+      ticking=false;
+    });
+
+    ticking=true;
+  }
+},{passive:true});
+
+// CARD TILT ON DESKTOP
+if(matchMedia('(hover:hover)').matches){
+  document.querySelectorAll('.project,.skill,.brand-card').forEach(card=>{
+
+    card.addEventListener('mousemove',e=>{
+      const r=card.getBoundingClientRect();
+      const x=(e.clientX-r.left)/r.width-.5;
+      const y=(e.clientY-r.top)/r.height-.5;
+
+      card.style.transform=
+        `perspective(800px) rotateX(${-y*5}deg) rotateY(${x*5}deg) translateY(-5px)`;
+    });
+
+    card.addEventListener('mouseleave',()=>{
+      card.style.transform='';
+    });
+
+  });
+}
