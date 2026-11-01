@@ -3,204 +3,220 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bhagyashri Sharma | Creative Universe</title>
-<meta name="description" content="Bhagyashri Sharma — Creative Developer, AI Creator and Digital Storyteller.">
+<title>Bhagyashri Sharma | Creative Portfolio</title>
+<meta name="description" content="Bhagyashri Sharma — Creative portfolio, website design, AI content and visual storytelling.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
-<div class="cursor"></div>
-<div class="cursor-ring"></div>
-<canvas id="particles"></canvas>
-<div class="ambient"></div>
-<div class="noise"></div>
-<div class="orb one"></div>
-<div class="orb two"></div>
 
-<nav>
+<div class="background-glow"></div>
+<canvas id="particles"></canvas>
+<div class="noise"></div>
+<div class="cursor-glow"></div>
+
+<header class="navbar">
   <a class="logo" href="#home">BHAGYA<span>.</span></a>
-  <div class="navlinks" id="navlinks">
-    <a href="#home">HOME</a>
-    <a href="#about">ABOUT</a>
-    <a href="#skills">SKILLS</a>
-    <a href="#work">WORK</a>
-    <a href="#brands">BRANDS</a>
-    <a href="#contact">CONTACT</a>
-  </div>
-  <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
-</nav>
+  <button class="menu-toggle" id="menuToggle" aria-label="Open menu">☰</button>
+  <nav id="navigation">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#brands">Brands</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
 
 <main>
-<section class="hero" id="home">
-  <div class="hero-content reveal">
-    <div class="eyebrow"><span class="live-dot"></span> CREATIVE MIND · DIGITAL WORLD</div>
-    <h1>I'm <span class="gradient">Bhagyashri</span><span class="line2">Sharma<span class="typing" id="typing">.</span></span></h1>
-    <p class="hero-description">
-      I create digital experiences through websites, AI-powered content,
-      visual storytelling and creative experiments. Always learning.
-      Always building.
-    </p>
-    <div class="btns">
-      <a class="btn" href="#work">Explore My Work ↗</a>
-      <a class="btn btn-outline" href="#contact">Let's Connect</a>
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-copy reveal">
+      <div class="eyebrow"><span></span> CREATIVE MIND · DIGITAL WORLD</div>
+      <p class="hero-pretitle">HELLO, I'M</p>
+      <h1>Bhagyashri<br><span class="gradient-text">Sharma.</span></h1>
+      <div class="role-line">I CREATE <span id="changing-word">DIGITAL EXPERIENCES</span><i></i></div>
+      <p class="hero-description">
+        Exploring the world of creativity and technology through website design,
+        AI-powered content, video editing and digital storytelling.
+        Learning, experimenting and building something new every day.
+      </p>
+      <div class="hero-actions">
+        <a class="primary-btn" href="#projects">Explore My Work <span>↗</span></a>
+        <a class="secondary-btn" href="#contact">Let's Connect</a>
+      </div>
+      <div class="hero-tags">WEB DESIGN <b>✦</b> AI CONTENT <b>✦</b> VIDEO EDITING <b>✦</b> CREATIVE WORK</div>
     </div>
-    <div class="hero-small">WEB DESIGN · AI CONTENT · VIDEO EDITING · CREATIVE PROJECTS</div>
+
+    <div class="hero-art reveal">
+      <div class="orbit orbit-one"></div>
+      <div class="orbit orbit-two"></div>
+      <div class="photo-halo"></div>
+      <div class="portrait-frame">
+        <img src="assets/bhagyashri.png" alt="Bhagyashri Sharma"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
+        <div class="photo-fallback"><strong>BS</strong><small>YOUR PHOTO</small></div>
+      </div>
+      <div class="floating-note note-one">✦ Creative Explorer<small>Ideas into experiences</small></div>
+      <div class="floating-note note-two">◈ Always Learning<small>Building what's next</small></div>
+      <div class="floating-note note-three">01 — 07<small>Website concepts</small></div>
+    </div>
+    <a href="#about" class="scroll-cue">SCROLL TO EXPLORE <span>↓</span></a>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee">
+    <div class="marquee-track">
+      <span>CREATIVE THINKING ✦</span><span>WEB EXPERIENCES ✦</span>
+      <span>AI STORYTELLING ✦</span><span>DIGITAL DESIGN ✦</span>
+      <span>ALWAYS EVOLVING ✦</span>
+      <span>CREATIVE THINKING ✦</span><span>WEB EXPERIENCES ✦</span>
+      <span>AI STORYTELLING ✦</span><span>DIGITAL DESIGN ✦</span>
+      <span>ALWAYS EVOLVING ✦</span>
+    </div>
   </div>
 
-  <div class="hero-visual reveal">
-    <div class="photo-frame">
-      <div class="photo-inner">
-        <!-- Add your transparent photo as assets/bhagyashri.png -->
-        <img src="assets/bhagyashri.png" alt="Bhagyashri Sharma"
-             onerror="this.style.display='none';document.getElementById('photoPlaceholder').style.display='block'">
-        <div class="photo-placeholder" id="photoPlaceholder" style="display:none">
-          <strong>BS</strong><small>ADD YOUR PHOTO<br>assets/bhagyashri.png</small>
-        </div>
+  <!-- ABOUT -->
+  <section class="section" id="about">
+    <div class="section-heading reveal">
+      <span class="section-index">01 / ABOUT ME</span>
+      <h2>Curiosity is where<br><span class="gradient-text">everything begins.</span></h2>
+      <p>I'm interested in the intersection of technology, creativity and meaningful digital experiences.</p>
+    </div>
+    <div class="about-layout">
+      <div class="about-feature glass reveal">
+        <span class="big-symbol">✳</span>
+        <h3>Not just creating.<br>Constantly evolving.</h3>
+        <p>I enjoy turning ideas into visual experiences — from website concepts and social media creatives to AI-assisted storytelling and video content.</p>
+      </div>
+      <div class="about-details">
+        <div class="detail-card glass reveal"><span>01</span><div><h3>Creative Thinking</h3><p>Exploring ideas, visual concepts and new ways to communicate.</p></div></div>
+        <div class="detail-card glass reveal"><span>02</span><div><h3>Learning by Building</h3><p>Developing practical skills through experiments and personal projects.</p></div></div>
+        <div class="detail-card glass reveal"><span>03</span><div><h3>Digital Curiosity</h3><p>Exploring web development, AI tools and cybersecurity fundamentals.</p></div></div>
       </div>
     </div>
-    <div class="float-card left">✦ Creative Explorer<small>Ideas into experiences</small></div>
-    <div class="float-card right">✧ Always Learning<small>Building what's next</small></div>
-  </div>
-  <div class="scroll-hint">SCROLL TO EXPLORE ↓</div>
-</section>
-
-<div class="marquee"><div class="marquee-track">
-  <span>CREATIVE THINKING ✦</span><span>WEB EXPERIENCES ✦</span><span>AI STORYTELLING ✦</span><span>DIGITAL DESIGN ✦</span><span>ALWAYS EVOLVING ✦</span>
-  <span>CREATIVE THINKING ✦</span><span>WEB EXPERIENCES ✦</span><span>AI STORYTELLING ✦</span><span>DIGITAL DESIGN ✦</span><span>ALWAYS EVOLVING ✦</span>
-</div></div>
-
-<section id="about">
-  <div class="reveal">
-    <div class="section-tag">01 / THE PERSON BEHIND THE PIXELS</div>
-    <h2 class="section-title">A little about <span class="gradient">me.</span></h2>
-    <p class="section-intro">Curiosity turns into ideas. Ideas turn into projects. And every project teaches me something new.</p>
-  </div>
-  <div class="about-grid">
-    <div class="about-card glass reveal">
-      <h3>More than one creative path.</h3>
-      <p>I'm interested in the intersection of technology and creativity. I work on website concepts, visual content, AI-assisted storytelling and digital projects. I enjoy learning by making things.</p>
+    <div class="mini-stats reveal">
+      <div><strong>07</strong><span>WEBSITE CONCEPTS</span></div>
+      <div><strong>02</strong><span>CREATIVE BRANDS</span></div>
+      <div><strong>∞</strong><span>IDEAS TO EXPLORE</span></div>
     </div>
-    <div class="about-card glass reveal">
-      <h3>My approach.</h3>
-      <p>Experiment, learn, improve and build. I believe a good digital experience should look thoughtful, feel engaging and work smoothly.</p>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="section" id="skills">
+    <div class="section-heading reveal">
+      <span class="section-index">02 / MY TOOLKIT</span>
+      <h2>Creative skills.<br><span class="gradient-text">Technical curiosity.</span></h2>
+      <p>A growing mix of creative and technical abilities. I'm always learning and improving.</p>
     </div>
-  </div>
-  <div class="stats reveal">
-    <div class="stat"><strong>07</strong><small>WEBSITE CONCEPTS</small></div>
-    <div class="stat"><strong>02</strong><small>CREATIVE BRANDS</small></div>
-    <div class="stat"><strong>∞</strong><small>IDEAS TO EXPLORE</small></div>
-  </div>
-</section>
-
-<section id="skills">
-  <div class="reveal">
-    <div class="section-tag">02 / WHAT I WORK WITH</div>
-    <h2 class="section-title">Skills & <span class="gradient">interests.</span></h2>
-    <p class="section-intro">A growing toolkit of creative and technical skills. Some are active strengths; others are learning journeys.</p>
-  </div>
-  <div class="skills-grid">
-    <div class="skill glass reveal"><div class="skill-icon">✦</div><h3>Website Design</h3><p>Designing responsive website concepts and digital experiences.</p></div>
-    <div class="skill glass reveal"><div class="skill-icon">◈</div><h3>Canva & Visual Design</h3><p>Social creatives, posters, layouts and visual communication.</p></div>
-    <div class="skill glass reveal"><div class="skill-icon">✧</div><h3>AI Content Creation</h3><p>AI-assisted ideas, prompts, storytelling and content workflows.</p></div>
-    <div class="skill glass reveal"><div class="skill-icon">▷</div><h3>Video Editing</h3><p>Short-form videos, reels, storytelling and editing experiments.</p></div>
-    <div class="skill glass reveal"><div class="skill-icon">⌘</div><h3>HTML, CSS & JavaScript</h3><p>Learning front-end development by building practical projects.</p></div>
-    <div class="skill glass reveal"><div class="skill-icon">⌁</div><h3>Ethical Hacking</h3><p>Beginner learning journey in cybersecurity and digital safety.</p></div>
-    <div class="skill glass reveal"><div class="skill-icon">✎</div><h3>Content Writing</h3><p>Articles, captions, scripts and creative communication.</p></div>
-    <div class="skill glass reveal"><div class="skill-icon">◎</div><h3>Social Media Content</h3><p>Content ideas and creative work for digital platforms.</p></div>
-    <div class="skill glass reveal"><div class="skill-icon">✺</div><h3>Animation & Motion</h3><p>Exploring motion design and engaging visual experiences.</p></div>
-  </div>
-</section>
-
-<section id="work">
-  <div class="reveal">
-    <div class="section-tag">03 / SELECTED EXPERIMENTS</div>
-    <h2 class="section-title">Things I've <span class="gradient">built.</span></h2>
-    <p class="section-intro">Website concepts and creative projects. We'll add your actual screenshots, recordings and live links here.</p>
-  </div>
-  <div class="project-grid">
-    <article class="project glass reveal"><div class="project-image"><span>01<br>SALON & BEAUTY</span></div><div class="project-info"><h3>Salon Beauty</h3><p>A beauty and salon website concept.</p><a class="project-link" href="#" target="_blank">Add live project link ↗</a></div></article>
-    <article class="project glass reveal"><div class="project-image"><span>02<br>RESTAURANT & CAFE</span></div><div class="project-info"><h3>Restaurant & Cafe</h3><p>A food and hospitality website concept.</p><a class="project-link" href="#" target="_blank">Add live project link ↗</a></div></article>
-    <article class="project glass reveal"><div class="project-image"><span>03<br>LUXE FASHION</span></div><div class="project-info"><h3>Luxe Fashion Store</h3><p>A modern fashion e-commerce concept.</p><a class="project-link" href="#" target="_blank">Add live project link ↗</a></div></article>
-    <article class="project glass reveal"><div class="project-image"><span>04<br>HOTEL & RESORT</span></div><div class="project-info"><h3>Hotel & Resort</h3><p>A hospitality and travel stay concept.</p><a class="project-link" href="#" target="_blank">Add live project link ↗</a></div></article>
-    <article class="project glass reveal"><div class="project-image"><span>05<br>GYM & FITNESS</span></div><div class="project-info"><h3>Gym & Fitness</h3><p>A fitness and wellness website concept.</p><a class="project-link" href="#" target="_blank">Add live project link ↗</a></div></article>
-    <article class="project glass reveal"><div class="project-image"><span>06<br>WANDERLY TRAVEL</span></div><div class="project-info"><h3>Wanderly Travel</h3><p>A travel discovery website concept.</p><a class="project-link" href="#" target="_blank">Add live project link ↗</a></div></article>
-    <article class="project glass reveal"><div class="project-image"><span>07<br>COMING SOON</span></div><div class="project-info"><h3>Seventh Project</h3><p>We'll add your seventh website project here.</p><a class="project-link" href="#contact">Details coming soon ↗</a></div></article>
-  </div>
-</section>
-
-<section id="videos">
-  <div class="reveal">
-    <div class="section-tag">04 / VISUAL STORYTELLING</div>
-    <h2 class="section-title">The video <span class="gradient">space.</span></h2>
-    <p class="section-intro">A showcase for your website walkthroughs, editing work and creative videos.</p>
-  </div>
-  <div class="video-grid">
-    <div class="video-card glass reveal"><div class="video-placeholder"><div><div class="play">▶</div>Website Walkthrough</div></div><h3>All Websites — Combined Showcase</h3><p>Add your combined website video link here.</p></div>
-    <div class="video-card glass reveal"><div class="video-placeholder"><div><div class="play">▶</div>Creative Video</div></div><h3>Creative Editing</h3><p>Add your video link here.</p></div>
-    <div class="video-card glass reveal"><div class="video-placeholder"><div><div class="play">▶</div>KB Studios</div></div><h3>KB Studios — Reels</h3><p>Add your KB video links here.</p></div>
-    <div class="video-card glass reveal"><div class="video-placeholder"><div><div class="play">▶</div>PAWVERSE</div></div><h3>PAW — Creative Videos</h3><p>Add your PAW video links here.</p></div>
-  </div>
-</section>
-
-<section id="brands">
-  <div class="reveal">
-    <div class="section-tag">05 / MY CREATIVE UNIVERSE</div>
-    <h2 class="section-title">Ideas with their <span class="gradient">own identity.</span></h2>
-    <p class="section-intro">Two separate creative identities, each with its own purpose and story.</p>
-  </div>
-  <div class="brand-grid">
-    <div class="brand-card glass reveal">
-      <div class="brand-label">CREATIVE MEDIA BRAND</div>
-      <h3>KB Studios</h3>
-      <p>Kalp Brahmand — a creative space for AI-assisted devotional stories, motivational content and visual storytelling.</p>
-      <a href="https://www.youtube.com/channel/UCHX5o_Ib46oQnwFnbLHZkNQ/videos" target="_blank">Explore YouTube ↗</a>
-      <br><a href="https://www.instagram.com/kbstudioskalpbrahmand22/" target="_blank">Explore Instagram ↗</a>
+    <div class="skills-grid">
+      <article class="skill-card glass reveal"><span>✧</span><h3>Website Design</h3><p>Website concepts, layouts and responsive digital experiences.</p></article>
+      <article class="skill-card glass reveal"><span>◈</span><h3>Canva & Visual Design</h3><p>Posters, social media creatives and visual communication.</p></article>
+      <article class="skill-card glass reveal"><span>✦</span><h3>AI Content Creation</h3><p>AI-assisted ideas, prompts, stories and content creation.</p></article>
+      <article class="skill-card glass reveal"><span>▷</span><h3>Video Editing</h3><p>Reels, short-form videos and visual storytelling.</p></article>
+      <article class="skill-card glass reveal"><span>⌘</span><h3>HTML, CSS & JavaScript</h3><p>Front-end development through hands-on projects.</p></article>
+      <article class="skill-card glass reveal"><span>⌁</span><h3>Ethical Hacking</h3><p>Beginner learning journey in cybersecurity fundamentals.</p></article>
+      <article class="skill-card glass reveal"><span>✎</span><h3>Content Writing</h3><p>Articles, captions, scripts and creative communication.</p></article>
+      <article class="skill-card glass reveal"><span>◎</span><h3>Social Media Content</h3><p>Creative content planning and platform-focused visuals.</p></article>
+      <article class="skill-card glass reveal"><span>✺</span><h3>Animation & Motion</h3><p>Exploring motion design and engaging visual experiences.</p></article>
     </div>
-    <div class="brand-card glass reveal">
-      <div class="brand-label">ANIMAL WELFARE INITIATIVE</div>
-      <h3>PAWVERSE</h3>
-      <p>PawverseCollective — an initiative concept built around compassion, awareness and a kinder world for animals.</p>
-      <a href="https://bhagyashreesharama-spec.github.io/pawverse/" target="_blank">Explore Website ↗</a>
-    </div>
-  </div>
-</section>
+  </section>
 
-<section id="journey">
-  <div class="reveal">
-    <div class="section-tag">06 / GROWTH IN PROGRESS</div>
-    <h2 class="section-title">My learning <span class="gradient">journey.</span></h2>
-    <p class="section-intro">Experience, experiments and new technical directions — all part of the process.</p>
-  </div>
-  <div class="journey reveal">
-    <div class="journey-item"><h3>Creative & Digital Projects</h3><p>Building website concepts, visual content, video edits and AI-assisted creative work.</p><span class="status">ONGOING</span></div>
-    <div class="journey-item"><h3>Community & Content Work</h3><p>Contributed to content, articles, posters, awareness work and creative volunteering projects.</p><span class="status">PROJECT EXPERIENCE</span></div>
-    <div class="journey-item"><h3>Communication & Presentation</h3><p>Developed communication, personality, presentation and stage-speaking experience.</p><span class="status">LEARNING & EXPERIENCE</span></div>
-    <div class="journey-item"><h3>Cybersecurity & Ethical Hacking</h3><p>Beginning a structured journey into cybersecurity, ethical hacking and technical problem-solving.</p><span class="status">CURRENT LEARNING PATH</span></div>
-  </div>
-</section>
+  <!-- PROJECTS -->
+  <section class="section" id="projects">
+    <div class="section-heading reveal">
+      <span class="section-index">03 / SELECTED WORK</span>
+      <h2>Ideas turned into<br><span class="gradient-text">digital experiences.</span></h2>
+      <p>Website concepts and practical experiments. Project screenshots and real links can be added to each card.</p>
+    </div>
+    <div class="projects-grid">
+      <article class="project-card glass reveal"><div class="project-visual salon"><span>01</span><b>SALON & BEAUTY</b></div><div class="project-info"><h3>Salon Beauty</h3><p>Beauty and salon website concept.</p><a href="#" target="_blank">View project ↗</a></div></article>
+      <article class="project-card glass reveal"><div class="project-visual cafe"><span>02</span><b>RESTAURANT & CAFE</b></div><div class="project-info"><h3>Restaurant & Cafe</h3><p>Food and hospitality website concept.</p><a href="#" target="_blank">View project ↗</a></div></article>
+      <article class="project-card glass reveal"><div class="project-visual fashion"><span>03</span><b>LUXE FASHION</b></div><div class="project-info"><h3>Luxe Fashion Store</h3><p>Modern fashion store website concept.</p><a href="#" target="_blank">View project ↗</a></div></article>
+      <article class="project-card glass reveal"><div class="project-visual hotel"><span>04</span><b>HOTEL & RESORT</b></div><div class="project-info"><h3>Hotel & Resort</h3><p>Hospitality and stay website concept.</p><a href="#" target="_blank">View project ↗</a></div></article>
+      <article class="project-card glass reveal"><div class="project-visual gym"><span>05</span><b>GYM & FITNESS</b></div><div class="project-info"><h3>Gym & Fitness</h3><p>Fitness and wellness website concept.</p><a href="#" target="_blank">View project ↗</a></div></article>
+      <article class="project-card glass reveal"><div class="project-visual travel"><span>06</span><b>WANDERLY TRAVEL</b></div><div class="project-info"><h3>Wanderly Travel</h3><p>Travel discovery website concept.</p><a href="#" target="_blank">View project ↗</a></div></article>
+      <article class="project-card glass reveal"><div class="project-visual seventh"><span>07</span><b>COMING SOON</b></div><div class="project-info"><h3>Seventh Website</h3><p>Seventh website concept — details to be added.</p><a href="#contact">Coming soon ↗</a></div></article>
+    </div>
+  </section>
 
-<section id="contact">
-  <div class="contact-box glass reveal">
-    <div class="section-tag">07 / LET'S CREATE SOMETHING</div>
-    <h2>Have an idea?<br><span class="gradient">Let's make it real.</span></h2>
-    <p>Open to creative collaborations, website projects, content opportunities and learning together.</p>
-    <div class="btns" style="justify-content:center">
-      <a class="btn" href="mailto:YOUR-EMAIL-HERE">Send an Email ↗</a>
+  <!-- VIDEOS -->
+  <section class="section" id="videos">
+    <div class="section-heading reveal">
+      <span class="section-index">04 / VIDEO SHOWCASE</span>
+      <h2>Stories told<br><span class="gradient-text">through motion.</span></h2>
+      <p>A space for website walkthroughs, creative edits, KB Studios videos and PAW content.</p>
     </div>
-    <div class="socials">
-      <a href="https://www.instagram.com/bhagyashri1187/" target="_blank">Instagram</a>
-      <a href="https://www.linkedin.com/in/bhagyashri-sharma-639087410/" target="_blank">LinkedIn</a>
-      <a href="https://www.instagram.com/kbstudioskalpbrahmand22/" target="_blank">KB Studios</a>
-      <a href="https://bhagyashreesharama-spec.github.io/pawverse/" target="_blank">PAW Website</a>
+    <div class="video-grid">
+      <div class="video-tile glass reveal"><div class="video-screen"><span>▶</span><small>WEBSITE SHOWCASE</small></div><h3>Website Walkthrough</h3><p>Combined showcase of website concepts.</p></div>
+      <div class="video-tile glass reveal"><div class="video-screen"><span>▶</span><small>KB STUDIOS</small></div><h3>KB Studios Videos</h3><p>Devotional and motivational storytelling.</p></div>
+      <div class="video-tile glass reveal"><div class="video-screen"><span>▶</span><small>PAWVERSE</small></div><h3>PAW Creative Videos</h3><p>Animal awareness and compassion content.</p></div>
+      <div class="video-tile glass reveal"><div class="video-screen"><span>▶</span><small>CREATIVE EDITING</small></div><h3>Editing Experiments</h3><p>Short-form video and editing work.</p></div>
     </div>
-  </div>
-</section>
+  </section>
+
+  <!-- BRANDS -->
+  <section class="section" id="brands">
+    <div class="section-heading reveal">
+      <span class="section-index">05 / MY CREATIVE UNIVERSE</span>
+      <h2>Two ideas.<br><span class="gradient-text">Two identities.</span></h2>
+      <p>Independent creative identities with their own stories and purposes.</p>
+    </div>
+    <div class="brands-grid">
+      <article class="brand-panel kb-panel glass reveal">
+        <span class="brand-kicker">CREATIVE MEDIA BRAND</span>
+        <div class="brand-emblem">KB</div>
+        <h3>KB Studios</h3>
+        <h4>Kalp Brahmand</h4>
+        <p>A creative space for AI-assisted devotional stories, motivational videos and visual storytelling.</p>
+        <a href="https://www.youtube.com/channel/UCHX5o_Ib46oQnwFnbLHZkNQ/videos" target="_blank">YouTube ↗</a>
+        <a href="https://www.instagram.com/kbstudioskalpbrahmand22/" target="_blank">Instagram ↗</a>
+      </article>
+      <article class="brand-panel paw-panel glass reveal">
+        <span class="brand-kicker">ANIMAL WELFARE INITIATIVE</span>
+        <div class="brand-emblem">PAW</div>
+        <h3>PAWVERSE</h3>
+        <h4>PawverseCollective</h4>
+        <p>An animal-welfare initiative concept built around compassion, awareness and a kinder world for animals.</p>
+        <a href="https://bhagyashreesharama-spec.github.io/pawverse/" target="_blank">Visit Website ↗</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- JOURNEY -->
+  <section class="section" id="journey">
+    <div class="section-heading reveal">
+      <span class="section-index">06 / WHAT'S NEXT</span>
+      <h2>Learning never<br><span class="gradient-text">stands still.</span></h2>
+      <p>My journey is a work in progress — every project adds a new skill and perspective.</p>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item reveal"><span>01</span><div><h3>Creative & Digital Projects</h3><p>Website concepts, visual content, video editing and AI-assisted creative work.</p><small>ONGOING</small></div></div>
+      <div class="timeline-item reveal"><span>02</span><div><h3>Content & Community Work</h3><p>Articles, awareness posters, social content and creative volunteering projects.</p><small>PROJECT EXPERIENCE</small></div></div>
+      <div class="timeline-item reveal"><span>03</span><div><h3>Communication & Presentation</h3><p>Building confidence through communication, presentation and speaking experience.</p><small>GROWTH</small></div></div>
+      <div class="timeline-item reveal"><span>04</span><div><h3>Cybersecurity & Ethical Hacking</h3><p>Starting a structured learning path in cybersecurity and ethical hacking.</p><small>BEGINNER LEARNING PATH</small></div></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section contact-section" id="contact">
+    <div class="contact-panel glass reveal">
+      <span class="section-index">07 / LET'S CONNECT</span>
+      <h2>Have an idea?<br><span class="gradient-text">Let's build it.</span></h2>
+      <p>Open to creative collaborations, website projects, content opportunities and learning together.</p>
+      <a class="primary-btn" href="mailto:YOUR-EMAIL-HERE">Get in Touch ↗</a>
+      <div class="social-links">
+        <a href="https://www.instagram.com/bhagyashri1187/" target="_blank">Personal Instagram</a>
+        <a href="https://www.linkedin.com/in/bhagyashri-sharma-639087410/" target="_blank">LinkedIn</a>
+        <a href="https://www.instagram.com/kbstudioskalpbrahmand22/" target="_blank">KB Studios</a>
+        <a href="https://bhagyashreesharama-spec.github.io/pawverse/" target="_blank">PAW Website</a>
+      </div>
+    </div>
+  </section>
 </main>
 
-<footer>© 2026 <span>Bhagyashri Sharma</span> · Designed with curiosity & creativity.</footer>
+<footer>© 2026 BHAGYASHRI SHARMA <span>✦</span> MADE WITH CURIOSITY</footer>
 <script src="script.js"></script>
 </body>
 </html>
-
